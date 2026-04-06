@@ -1,5 +1,8 @@
 // Email notification service for Pulalend
-// This is a placeholder implementation - replace with actual email service (SendGrid, AWS SES, etc.)
+// SMTP configuration using Hostinger email service
+
+import nodemailer from 'nodemailer';
+import type { Transporter } from 'nodemailer';
 
 interface EmailParams {
   to: string;
@@ -9,11 +12,30 @@ interface EmailParams {
 }
 
 export class EmailService {
-  private static readonly FROM_EMAIL = process.env.EMAIL_FROM || 'noreply@pulalend.com';
+  private static readonly FROM_EMAIL = process.env.EMAIL_FROM || 'no_reply@pulalend.co.bw';
   private static readonly ENABLED = process.env.ENABLE_EMAILS === 'true';
+  private static transporter: Transporter | null = null;
 
   /**
-   * Send an email (currently logs to console - integrate with real service)
+   * Initialize SMTP transporter with Hostinger configuration
+   */
+  private static getTransporter(): Transporter {
+    if (!this.transporter) {
+      this.transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || 'smtp.hostinger.com',
+        port: parseInt(process.env.SMTP_PORT || '465'),
+        secure: true, // SSL
+        auth: {
+          user: process.env.SMTP_USER || 'no_reply@pulalend.co.bw',
+          pass: process.env.SMTP_PASSWORD || '',
+        },
+      });
+    }
+    return this.transporter;
+  }
+
+  /**
+   * Send an email via SMTP
    */
   static async send(params: EmailParams): Promise<boolean> {
     if (!this.ENABLED) {
@@ -25,21 +47,21 @@ export class EmailService {
     }
 
     try {
-      // TODO: Replace with actual email service integration
-      // Example with SendGrid:
-      // const sgMail = require('@sendgrid/mail');
-      // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      // await sgMail.send({
-      //   to: params.to,
-      //   from: params.from || this.FROM_EMAIL,
-      //   subject: params.subject,
-      //   html: params.html,
-      // });
-
-      console.log('[Email Sent]', {
+      const transporter = this.getTransporter();
+      
+      const mailOptions = {
+        from: `"PulaLend" <${params.from || this.FROM_EMAIL}>`,
         to: params.to,
         subject: params.subject,
-        from: params.from || this.FROM_EMAIL,
+        html: params.html,
+      };
+
+      const info = await transporter.sendMail(mailOptions);
+      
+      console.log('[Email Sent Successfully]', {
+        messageId: info.messageId,
+        to: params.to,
+        subject: params.subject,
       });
 
       return true;
@@ -266,6 +288,177 @@ export class EmailService {
     return this.send({
       to,
       subject: `Payment Overdue: ${loanNumber} - PulaLend`,
+      html,
+    });
+  }
+
+  /**
+   * Send 2FA verification code email
+   */
+  static async send2FACode(
+    to: string,
+    name: string,
+    code: string
+  ): Promise<boolean> {
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #0a1f44; color: white; padding: 20px; text-align: center; }
+            .content { padding: 30px; background: #f9f9f9; }
+            .code { font-size: 36px; font-weight: bold; text-align: center; letter-spacing: 8px; margin: 30px 0; padding: 20px; background: white; border: 2px dashed #0a1f44; border-radius: 8px; }
+            .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; }
+            .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>🔐 PulaLend</h1>
+              <p>Two-Factor Authentication</p>
+            </div>
+            <div class="content">
+              <p>Hi ${name},</p>
+              <p>Your verification code for logging into PulaLend is:</p>
+              <div class="code">${code}</div>
+              <p style="text-align: center; color: #666;">This code will expire in 10 minutes.</p>
+              <div class="warning">
+                <strong>⚠️ Security Notice:</strong> Never share this code with anyone. PulaLend staff will never ask for your verification code.
+              </div>
+              <p>If you didn't request this code, please ignore this email or contact our support team immediately.</p>
+            </div>
+            <div class="footer">
+              <p>© 2026 PulaLend. All rights reserved.</p>
+              <p>Building trust in responsible lending across Botswana.</p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `;
+
+    return this.send({
+      to,
+      subject: 'Your PulaLend Verification Code',
+      html,
+    });
+  }
+
+  /**
+   * Send password reset email with reset link
+   */
+  static async sendPasswordResetEmail(
+    to: string,
+    name: string,
+    resetToken: string
+  ): Promise<boolean> {
+    const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${resetToken}`;
+    
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #0a1f44; color: white; padding: 20px; text-align: center; }
+            .content { padding: 30px; background: #f9f9f9; }
+            .button { background: #0a1f44; color: white; padding: 15px 40px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 20px 0; }
+            .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; }
+            .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+            .token-box { background: #f3f4f6; padding: 15px; border-radius: 5px; margin: 20px 0; word-break: break-all; font-family: monospace; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>🔑 PulaLend</h1>
+              <p>Password Reset Request</p>
+            </div>
+            <div class="content">
+              <p>Hi ${name},</p>
+              <p>We received a request to reset your password for your PulaLend account.</p>
+              <p>Click the button below to reset your password:</p>
+              <div style="text-align: center;">
+                <a href="${resetUrl}" class="button">Reset Password</a>
+              </div>
+              <p>Or copy and paste this link into your browser:</p>
+              <div class="token-box">${resetUrl}</div>
+              <p style="color: #666; font-size: 14px;">This link will expire in 1 hour.</p>
+              <div class="warning">
+                <strong>⚠️ Security Notice:</strong> If you didn't request a password reset, please ignore this email. Your password will remain unchanged.
+              </div>
+            </div>
+            <div class="footer">
+              <p>© 2026 PulaLend. All rights reserved.</p>
+              <p>Building trust in responsible lending across Botswana.</p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `;
+
+    return this.send({
+      to,
+      subject: 'Reset Your PulaLend Password',
+      html,
+    });
+  }
+
+  /**
+   * Send password reset confirmation email
+   */
+  static async sendPasswordResetConfirmation(
+    to: string,
+    name: string
+  ): Promise<boolean> {
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #16a34a; color: white; padding: 20px; text-align: center; }
+            .content { padding: 30px; background: #f9f9f9; }
+            .success { background: #dcfce7; border-left: 4px solid #16a34a; padding: 15px; margin: 20px 0; }
+            .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; }
+            .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+            .button { background: #0a1f44; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 20px 0; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>✓ Password Changed</h1>
+            </div>
+            <div class="content">
+              <p>Hi ${name},</p>
+              <div class="success">
+                <p><strong>Success!</strong> Your password has been changed successfully.</p>
+              </div>
+              <p>You can now log in to your PulaLend account using your new password.</p>
+              <div style="text-align: center;">
+                <a href="${process.env.NEXTAUTH_URL}/login" class="button">Log In Now</a>
+              </div>
+              <div class="warning">
+                <strong>⚠️ Didn't make this change?</strong> If you didn't reset your password, please contact our support team immediately to secure your account.
+              </div>
+            </div>
+            <div class="footer">
+              <p>© 2026 PulaLend. All rights reserved.</p>
+              <p>Building trust in responsible lending across Botswana.</p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `;
+
+    return this.send({
+      to,
+      subject: 'Your PulaLend Password Has Been Changed',
       html,
     });
   }

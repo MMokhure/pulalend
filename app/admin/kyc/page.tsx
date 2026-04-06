@@ -224,11 +224,19 @@ export default function AdminKycPage() {
                   <div className="border border-gray-200 rounded-lg p-3">
                     <p className="text-sm font-medium text-gray-700 mb-2">ID Front</p>
                     <div className="bg-gray-100 rounded h-40 flex items-center justify-center overflow-hidden">
-                      <img 
-                        src={selectedKyc.idFrontPath.startsWith('/') ? selectedKyc.idFrontPath : `/${selectedKyc.idFrontPath}`} 
-                        alt="ID Front" 
-                        className="w-full h-full object-contain"
-                      />
+                      {selectedKyc.idFrontPath.toLowerCase().endsWith('.pdf') ? (
+                        <embed 
+                          src={selectedKyc.idFrontPath.startsWith('/') ? selectedKyc.idFrontPath : `/${selectedKyc.idFrontPath}`} 
+                          type="application/pdf"
+                          className="w-full h-full"
+                        />
+                      ) : (
+                        <img 
+                          src={selectedKyc.idFrontPath.startsWith('/') ? selectedKyc.idFrontPath : `/${selectedKyc.idFrontPath}`} 
+                          alt="ID Front" 
+                          className="w-full h-full object-contain"
+                        />
+                      )}
                     </div>
                     <p className="text-xs text-gray-500 mt-2 truncate">{selectedKyc.idFrontPath}</p>
                   </div>
@@ -237,11 +245,19 @@ export default function AdminKycPage() {
                   <div className="border border-gray-200 rounded-lg p-3">
                     <p className="text-sm font-medium text-gray-700 mb-2">ID Back</p>
                     <div className="bg-gray-100 rounded h-40 flex items-center justify-center overflow-hidden">
-                      <img 
-                        src={selectedKyc.idBackPath.startsWith('/') ? selectedKyc.idBackPath : `/${selectedKyc.idBackPath}`} 
-                        alt="ID Back" 
-                        className="w-full h-full object-contain"
-                      />
+                      {selectedKyc.idBackPath.toLowerCase().endsWith('.pdf') ? (
+                        <embed 
+                          src={selectedKyc.idBackPath.startsWith('/') ? selectedKyc.idBackPath : `/${selectedKyc.idBackPath}`} 
+                          type="application/pdf"
+                          className="w-full h-full"
+                        />
+                      ) : (
+                        <img 
+                          src={selectedKyc.idBackPath.startsWith('/') ? selectedKyc.idBackPath : `/${selectedKyc.idBackPath}`} 
+                          alt="ID Back" 
+                          className="w-full h-full object-contain"
+                        />
+                      )}
                     </div>
                     <p className="text-xs text-gray-500 mt-2 truncate">{selectedKyc.idBackPath}</p>
                   </div>
@@ -250,11 +266,19 @@ export default function AdminKycPage() {
                   <div className="border border-gray-200 rounded-lg p-3">
                     <p className="text-sm font-medium text-gray-700 mb-2">Selfie</p>
                     <div className="bg-gray-100 rounded h-40 flex items-center justify-center overflow-hidden">
-                      <img 
-                        src={selectedKyc.selfiePath.startsWith('/') ? selectedKyc.selfiePath : `/${selectedKyc.selfiePath}`} 
-                        alt="Selfie" 
-                        className="w-full h-full object-contain"
-                      />
+                      {selectedKyc.selfiePath.toLowerCase().endsWith('.pdf') ? (
+                        <embed 
+                          src={selectedKyc.selfiePath.startsWith('/') ? selectedKyc.selfiePath : `/${selectedKyc.selfiePath}`} 
+                          type="application/pdf"
+                          className="w-full h-full"
+                        />
+                      ) : (
+                        <img 
+                          src={selectedKyc.selfiePath.startsWith('/') ? selectedKyc.selfiePath : `/${selectedKyc.selfiePath}`} 
+                          alt="Selfie" 
+                          className="w-full h-full object-contain"
+                        />
+                      )}
                     </div>
                     <p className="text-xs text-gray-500 mt-2 truncate">{selectedKyc.selfiePath}</p>
                   </div>
@@ -263,11 +287,19 @@ export default function AdminKycPage() {
                   <div className="border border-gray-200 rounded-lg p-3">
                     <p className="text-sm font-medium text-gray-700 mb-2">Omang Copy</p>
                     <div className="bg-gray-100 rounded h-40 flex items-center justify-center overflow-hidden">
-                      <img 
-                        src={selectedKyc.omangCopyPath.startsWith('/') ? selectedKyc.omangCopyPath : `/${selectedKyc.omangCopyPath}`} 
-                        alt="Omang Copy" 
-                        className="w-full h-full object-contain"
-                      />
+                      {selectedKyc.omangCopyPath.toLowerCase().endsWith('.pdf') ? (
+                        <embed 
+                          src={selectedKyc.omangCopyPath.startsWith('/') ? selectedKyc.omangCopyPath : `/${selectedKyc.omangCopyPath}`} 
+                          type="application/pdf"
+                          className="w-full h-full"
+                        />
+                      ) : (
+                        <img 
+                          src={selectedKyc.omangCopyPath.startsWith('/') ? selectedKyc.omangCopyPath : `/${selectedKyc.omangCopyPath}`} 
+                          alt="Omang Copy" 
+                          className="w-full h-full object-contain"
+                        />
+                      )}
                     </div>
                     <p className="text-xs text-gray-500 mt-2 truncate">{selectedKyc.omangCopyPath}</p>
                   </div>
@@ -276,11 +308,19 @@ export default function AdminKycPage() {
                   <div className="border border-gray-200 rounded-lg p-3">
                     <p className="text-sm font-medium text-gray-700 mb-2">Payslip</p>
                     <div className="bg-gray-100 rounded h-40 flex items-center justify-center overflow-hidden">
-                      <img 
-                        src={selectedKyc.payslipPath.startsWith('/') ? selectedKyc.payslipPath : `/${selectedKyc.payslipPath}`} 
-                        alt="Payslip" 
-                        className="w-full h-full object-contain"
-                      />
+                      {selectedKyc.payslipPath.toLowerCase().endsWith('.pdf') ? (
+                        <embed 
+                          src={selectedKyc.payslipPath.startsWith('/') ? selectedKyc.payslipPath : `/${selectedKyc.payslipPath}`} 
+                          type="application/pdf"
+                          className="w-full h-full"
+                        />
+                      ) : (
+                        <img 
+                          src={selectedKyc.payslipPath.startsWith('/') ? selectedKyc.payslipPath : `/${selectedKyc.payslipPath}`} 
+                          alt="Payslip" 
+                          className="w-full h-full object-contain"
+                        />
+                      )}
                     </div>
                     <p className="text-xs text-gray-500 mt-2 truncate">{selectedKyc.payslipPath}</p>
                   </div>

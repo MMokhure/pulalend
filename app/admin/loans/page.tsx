@@ -149,7 +149,7 @@ export default function AdminLoansPage() {
                         Loan #{l.id} • Borrower: {l.borrower.firstName} {l.borrower.lastName} ({l.borrower.email})
                       </div>
                       <div className="text-xl font-bold text-navy-deep mt-1">
-                        ${Number(l.amount).toLocaleString()} for {l.durationMonths} months
+                        P{Number(l.amount).toLocaleString()} for {l.durationMonths} months
                       </div>
                       <div className="text-gray-600 mt-2 line-clamp-2">{l.purpose}</div>
                       <div className="text-sm text-gray-500 mt-2">

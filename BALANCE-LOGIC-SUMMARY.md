@@ -1,4 +1,4 @@
-## BALANCE LOGIC FIXED - DASHBOARD SUMMARY
+SMTP_PASSWORD=your_actual_email_password_here## BALANCE LOGIC FIXED - DASHBOARD SUMMARY
 
 ### 🔧 WHAT WAS FIXED:
 1. ✅ Corrected lender initial deposit from P20,000 → P50,000

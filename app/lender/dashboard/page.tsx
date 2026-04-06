@@ -419,22 +419,49 @@ export default function LenderDashboardPage() {
 
       {/* Notifications Feed */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-8">
-        <div className="p-6 border-b border-gray-100">
+        <div className="p-6 border-b border-gray-100 flex items-center justify-between">
           <h3 className="text-lg font-bold text-navy-deep">Recent Notifications</h3>
+          {notifications.length > 0 && (
+            <button
+              onClick={async () => {
+                if (!user) return;
+                try {
+                  const res = await fetch('/api/notifications/mark-all-read', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: user.id }),
+                  });
+                  if (res.ok) {
+                    load(user.id);
+                  }
+                } catch (err) {
+                  console.error('Error marking all as read:', err);
+                }
+              }}
+              className="text-xs text-blue-600 hover:text-blue-700 font-medium"
+            >
+              Mark all as read
+            </button>
+          )}
         </div>
         <div className="p-6">
           {loading ? (
             <p className="text-gray-500">Loading...</p>
           ) : notifications.length === 0 ? (
-            <p className="text-gray-600">No new notifications.</p>
+            <div className="text-center py-8">
+              <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <p className="text-gray-600">No new notifications.</p>
+            </div>
           ) : (
             <div className="space-y-3">
-              {notifications.map((notif) => (
+              {notifications.map((notif: any) => (
                 <div 
                   key={notif.id} 
-                  className={`flex items-start space-x-4 p-3 rounded-lg ${
-                    notif.readStatus === 'unread' ? 'bg-blue-50 border border-blue-100' : 'bg-gray-50'
-                  }`}
+                  className={`relative group flex items-start space-x-4 p-4 rounded-lg border transition-all ${
+                    !notif.read_status ? 'bg-blue-50 border-blue-200 shadow-sm' : 'bg-gray-50 border-gray-200'
+                  } hover:shadow-md`}
                 >
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                     notif.type === 'success' ? 'bg-green-100' :
@@ -459,17 +486,79 @@ export default function LenderDashboardPage() {
                       )}
                     </svg>
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between">
-                      <p className="font-medium text-navy-deep">{notif.title}</p>
-                      {notif.readStatus === 'unread' && (
-                        <span className="w-2 h-2 bg-primary-blue rounded-full flex-shrink-0 ml-2 mt-1.5" />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-2 flex-1">
+                        <p className="font-semibold text-navy-deep">{notif.title}</p>
+                        {!notif.read_status && (
+                          <span className="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0 mt-1.5 animate-pulse" />
+                        )}
+                      </div>
+                      {/* Action buttons */}
+                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {!notif.read_status && (
+                          <button
+                            onClick={async () => {
+                              if (!user) return;
+                              try {
+                                const res = await fetch(`/api/notifications/${notif.id}/read`, {
+                                  method: 'PATCH',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify({ userId: user.id }),
+                                });
+                                if (res.ok) {
+                                  load(user.id);
+                                }
+                              } catch (err) {
+                                console.error('Error marking as read:', err);
+                              }
+                            }}
+                            className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                            title="Mark as read"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </button>
+                        )}
+                        <button
+                          onClick={async () => {
+                            if (!user) return;
+                            if (!confirm('Delete this notification?')) return;
+                            try {
+                              const res = await fetch(`/api/notifications/${notif.id}?userId=${user.id}`, {
+                                method: 'DELETE',
+                              });
+                              if (res.ok) {
+                                load(user.id);
+                              }
+                            } catch (err) {
+                              console.error('Error deleting notification:', err);
+                            }
+                          }}
+                          className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                          title="Delete"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-2 break-words">{notif.message}</p>
+                    <div className="flex items-center gap-3 mt-3">
+                      <p className="text-xs text-gray-400">
+                        {new Date(notif.created_at).toLocaleDateString()} at {new Date(notif.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </p>
+                      {notif.action_url && notif.action_label && (
+                        <a
+                          href={notif.action_url}
+                          className="text-xs font-medium text-blue-600 hover:text-blue-700 hover:underline"
+                        >
+                          {notif.action_label} →
+                        </a>
                       )}
                     </div>
-                    <p className="text-sm text-gray-600 mt-1">{notif.message}</p>
-                    <p className="text-xs text-gray-400 mt-1">
-                      {new Date(notif.createdAt).toLocaleDateString()} at {new Date(notif.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </p>
                   </div>
                 </div>
               ))}

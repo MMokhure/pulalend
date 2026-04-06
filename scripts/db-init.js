@@ -111,7 +111,7 @@ async function main() {
     await ensureColumn("loan_requests", "loan_number", "VARCHAR(50) UNIQUE");
     console.log("Done. Database and tables are ready.");
     console.log("Seeded admin:");
-    console.log("  email: admin@pulalend.com");
+    console.log("  email: admin@pulalend.co.bw");
     console.log("  password: admin123");
   } finally {
     await connection.end();

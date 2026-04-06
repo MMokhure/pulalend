@@ -74,7 +74,7 @@ async function main() {
     console.log("  ✓ Cleared borrower_profiles");
 
     // Delete demo users but keep admin
-    await conn.execute("DELETE FROM users WHERE email != 'admin@pulalend.com'");
+    await conn.execute("DELETE FROM users WHERE email != 'admin@pulalend.co.bw'");
     console.log("  ✓ Cleared demo users (kept admin)");
 
     // Reset auto increment counters
@@ -95,7 +95,7 @@ async function main() {
 
     console.log("\n✅ Database cleared successfully!");
     console.log("Only admin account remains:");
-    console.log("  email: admin@pulalend.com");
+    console.log("  email: admin@pulalend.co.bw");
     console.log("  password: admin123");
   } catch (err) {
     await conn.rollback();

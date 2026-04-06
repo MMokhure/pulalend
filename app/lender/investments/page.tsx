@@ -127,19 +127,19 @@ export default function LenderInvestmentsPage() {
 
           <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-6">
             <div className="text-sm text-white/80 mb-2">Total Invested</div>
-            <div className="text-3xl font-bold">${(stats.totalInvested / 1000).toFixed(1)}k</div>
+            <div className="text-3xl font-bold">P{(stats.totalInvested / 1000).toFixed(1)}k</div>
             <div className="text-sm text-white/80 mt-2">Principal amount</div>
           </div>
 
           <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl p-6">
             <div className="text-sm text-white/80 mb-2">Expected Return</div>
-            <div className="text-3xl font-bold">${(stats.totalExpectedReturn / 1000).toFixed(1)}k</div>
+            <div className="text-3xl font-bold">P{(stats.totalExpectedReturn / 1000).toFixed(1)}k</div>
             <div className="text-sm text-white/80 mt-2">Projected earnings</div>
           </div>
 
           <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-6">
             <div className="text-sm text-white/80 mb-2">Actual Return</div>
-            <div className="text-3xl font-bold">${(stats.totalActualReturn / 1000).toFixed(1)}k</div>
+            <div className="text-3xl font-bold">P{(stats.totalActualReturn / 1000).toFixed(1)}k</div>
             <div className="text-sm text-white/80 mt-2">
               {stats.defaultedCount > 0 && `${stats.defaultedCount} defaulted`}
             </div>

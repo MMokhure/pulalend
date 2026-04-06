@@ -206,4 +206,4 @@ VALUES (0.00, 0.00, 0);
 
 -- Insert default admin user (password: admin123)
 INSERT IGNORE INTO users (email, password_hash, first_name, last_name, user_type, email_verified) 
-VALUES ('admin@pulalend.com', '$2a$10$dffbl3.vpzndovbgoxU5me4XdwMxDs/PfHcmjO93gaCBS7vAcjTOm', 'Admin', 'User', 'admin', TRUE);
+VALUES ('admin@pulalend.co.bw', '$2a$10$dffbl3.vpzndovbgoxU5me4XdwMxDs/PfHcmjO93gaCBS7vAcjTOm', 'Admin', 'User', 'admin', TRUE);
