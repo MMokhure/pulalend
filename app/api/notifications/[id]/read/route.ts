@@ -7,12 +7,13 @@ import { NotificationService } from "@/lib/notificationService";
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const body = await request.json();
     const { userId } = body;
-    const notificationId = parseInt(params.id);
+    const { id } = await params;
+    const notificationId = parseInt(id);
 
     if (!userId || isNaN(notificationId)) {
       return NextResponse.json(

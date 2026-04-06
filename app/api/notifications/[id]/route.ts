@@ -7,12 +7,13 @@ import { NotificationService } from "@/lib/notificationService";
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId");
-    const notificationId = parseInt(params.id);
+    const { id } = await params;
+    const notificationId = parseInt(id);
 
     if (!userId || isNaN(notificationId)) {
       return NextResponse.json(
