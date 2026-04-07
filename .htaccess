@@ -1,0 +1,53 @@
+# Disable directory listings
+Options -Indexes
+
+# Default index files
+DirectoryIndex index.html index.php
+
+# Security headers (if mod_headers is enabled)
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Deny access to hidden files and common sensitive files
+<FilesMatch "^(\.env|\.git|\.htaccess|package-lock\.json|composer\.lock)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Deny access to node_modules, .git and other sensitive directories (works in .htaccess)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block access to hidden files like .env and the .htaccess file itself
+    RewriteRule (^|/)\.env$ - [F,L]
+    RewriteRule (^|/)\.htaccess$ - [F,L]
+
+    # Block access to common sensitive filenames
+    RewriteRule (^|/)(composer\.lock|package-lock\.json|composer\.json)$ - [F,L]
+
+    # Block access to sensitive directories (node_modules, .git)
+    RewriteRule (^|/)(node_modules|\.git)(/|$) - [F,L]
+
+    # Serve existing files and directories directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # NOTE: Proxying to an internal Node server from .htaccess is often disallowed
+    # by hosts and requires mod_proxy and mod_proxy_http enabled in the server config.
+    # It's better to set up a VirtualHost ProxyPass in Apache's main config.
+    # If you must proxy from here and your host allows it, uncomment and adjust the
+    # following line (requires mod_proxy & mod_proxy_http):
+    # RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
+</IfModule>
+
+# Helpful errors (optional - replace with your own pages if available)
+# ErrorDocument 403 /403.html
+# ErrorDocument 404 /404.html
