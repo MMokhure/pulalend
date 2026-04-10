@@ -16,8 +16,12 @@ async function runMigration() {
     console.log('📊 Running 2FA Migration...');
     
     const migrationPath = path.join(__dirname, '..', 'database', 'migration-2fa.sql');
-    const sql = fs.readFileSync(migrationPath, 'utf8');
-    
+    const rawSql = fs.readFileSync(migrationPath, 'utf8');
+
+    // Ensure the migration runs against the configured database name.
+    const dbName = process.env.DB_NAME || 'pulalend';
+    const sql = rawSql.replace(/USE\s+[^;]+;/gi, `USE \`${dbName}\`;`);
+
     await connection.query(sql);
     
     console.log('✅ 2FA Migration completed successfully!');
