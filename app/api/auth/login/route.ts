@@ -97,11 +97,13 @@ export async function POST(request: NextRequest) {
       user: userData,
       message: "Login successful",
     });
-  } catch (error) {
-    console.error("Login error:", error);
-    return NextResponse.json(
-      { error: "An error occurred during login" },
-      { status: 500 }
-    );
+  } catch (error: any) {
+    console.error("Login error:", error?.stack || error);
+    const body: any = { error: "An error occurred during login" };
+    if (process.env.NODE_ENV !== "production") {
+      body.detail = error?.message;
+      body.stack = error?.stack;
+    }
+    return NextResponse.json(body, { status: 500 });
   }
 }
