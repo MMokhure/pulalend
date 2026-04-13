@@ -1,0 +1,207 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, must-revalidate"
+        }
+      ],
+      "regex": "^(?:/(.*))(?:/)?$"
+    }
+  ],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/api/notifications/[id]",
+      "regex": "^/api/notifications/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/notifications/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/notifications/[id]/read",
+      "regex": "^/api/notifications/([^/]+?)/read(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/notifications/(?<nxtPid>[^/]+?)/read(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/admin",
+      "regex": "^/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/admin/kyc",
+      "regex": "^/admin/kyc(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/kyc(?:/)?$"
+    },
+    {
+      "page": "/admin/loans",
+      "regex": "^/admin/loans(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/loans(?:/)?$"
+    },
+    {
+      "page": "/admin/users",
+      "regex": "^/admin/users(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/users(?:/)?$"
+    },
+    {
+      "page": "/borrower/apply",
+      "regex": "^/borrower/apply(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/borrower/apply(?:/)?$"
+    },
+    {
+      "page": "/borrower/dashboard",
+      "regex": "^/borrower/dashboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/borrower/dashboard(?:/)?$"
+    },
+    {
+      "page": "/borrower/kyc",
+      "regex": "^/borrower/kyc(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/borrower/kyc(?:/)?$"
+    },
+    {
+      "page": "/borrower/loans",
+      "regex": "^/borrower/loans(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/borrower/loans(?:/)?$"
+    },
+    {
+      "page": "/borrower/profile",
+      "regex": "^/borrower/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/borrower/profile(?:/)?$"
+    },
+    {
+      "page": "/borrower/repayments",
+      "regex": "^/borrower/repayments(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/borrower/repayments(?:/)?$"
+    },
+    {
+      "page": "/forgot-password",
+      "regex": "^/forgot\\-password(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/forgot\\-password(?:/)?$"
+    },
+    {
+      "page": "/lender/dashboard",
+      "regex": "^/lender/dashboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/lender/dashboard(?:/)?$"
+    },
+    {
+      "page": "/lender/investments",
+      "regex": "^/lender/investments(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/lender/investments(?:/)?$"
+    },
+    {
+      "page": "/lender/opportunities",
+      "regex": "^/lender/opportunities(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/lender/opportunities(?:/)?$"
+    },
+    {
+      "page": "/lender/portfolio",
+      "regex": "^/lender/portfolio(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/lender/portfolio(?:/)?$"
+    },
+    {
+      "page": "/lender/profile",
+      "regex": "^/lender/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/lender/profile(?:/)?$"
+    },
+    {
+      "page": "/lender/transactions",
+      "regex": "^/lender/transactions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/lender/transactions(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
+      "page": "/register",
+      "regex": "^/register(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/register(?:/)?$"
+    },
+    {
+      "page": "/reset-password",
+      "regex": "^/reset\\-password(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/reset\\-password(?:/)?$"
+    },
+    {
+      "page": "/terms",
+      "regex": "^/terms(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/terms(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
