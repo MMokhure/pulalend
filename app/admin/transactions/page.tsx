@@ -93,7 +93,7 @@ export default function AdminTransactionsPage() {
   };
 
   return (
-    <DashboardLayout navItems={navItems} userType="admin">
+    <DashboardLayout navItems={navItems} userType="admin" title="Transaction Management">
       <div className="p-6">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900">Transaction Management</h1>

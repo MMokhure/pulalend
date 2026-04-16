@@ -206,7 +206,7 @@ export default function BorrowerExtensionsPage() {
 
   if (loading && !user) {
     return (
-      <DashboardLayout navItems={navItems} userType="borrower">
+      <DashboardLayout navItems={navItems} userType="borrower" title="Extension Requests">
         <div className="flex justify-center items-center h-64">
           <div className="text-gray-600">Loading...</div>
         </div>
@@ -215,7 +215,7 @@ export default function BorrowerExtensionsPage() {
   }
 
   return (
-    <DashboardLayout navItems={navItems} userType="borrower">
+    <DashboardLayout navItems={navItems} userType="borrower" title="Extension Requests">
       <div className="p-6">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900">Extension Requests</h1>

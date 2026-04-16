@@ -64,7 +64,7 @@ export default function AdminReportsPage() {
 
   if (loading || !data) {
     return (
-      <DashboardLayout navItems={navItems} userType="admin">
+      <DashboardLayout navItems={navItems} userType="admin" title="Reports & Analytics">
         <div className="flex justify-center items-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
@@ -75,7 +75,7 @@ export default function AdminReportsPage() {
   const { platformStats, repaymentMetrics, topLoans, alerts, revenueData } = data;
 
   return (
-    <DashboardLayout navItems={navItems} userType="admin">
+    <DashboardLayout navItems={navItems} userType="admin" title="Reports & Analytics">
       <div className="p-6">
         <div className="mb-6 flex justify-between items-center">
           <div>

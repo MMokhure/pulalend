@@ -123,7 +123,7 @@ export default function AdminCommissionPage() {
   };
 
   return (
-    <DashboardLayout navItems={navItems} userType="admin">
+    <DashboardLayout navItems={navItems} userType="admin" title="Platform Commission Tracking">
       <div className="p-6">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900">Platform Commission Tracking</h1>

@@ -1,7 +1,7 @@
 {
-  "/lender/commission-info/page": "app/lender/commission-info/page.js",
-  "/lender/dashboard/page": "app/lender/dashboard/page.js",
-  "/lender/withdrawals/page": "app/lender/withdrawals/page.js",
-  "/lender/opportunities/page": "app/lender/opportunities/page.js",
-  "/page": "app/page.js"
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/admin/dashboard/route": "app/api/admin/dashboard/route.js",
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/admin/page": "app/admin/page.js"
 }

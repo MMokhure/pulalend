@@ -71,8 +71,8 @@ export async function GET(request: NextRequest) {
       FROM repayment_schedules
     `);
 
-    const repaymentRate = repaymentStats[0].expectedAmount > 0 
-      ? ((repaymentStats[0].paidAmount / repaymentStats[0].expectedAmount) * 100).toFixed(2) 
+    const repaymentRate = repaymentStats[0].expectedAmount > 0
+      ? Number(((repaymentStats[0].paidAmount / repaymentStats[0].expectedAmount) * 100).toFixed(2))
       : 0;
 
     // Top Performing Loans
@@ -143,7 +143,7 @@ export async function GET(request: NextRequest) {
       investmentPerformance: investmentData,
       repaymentMetrics: {
         ...repaymentStats[0],
-        repaymentRate: parseFloat(repaymentRate),
+        repaymentRate,
       },
       topLoans,
       alerts,

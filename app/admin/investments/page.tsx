@@ -78,7 +78,7 @@ export default function AdminInvestmentsPage() {
   };
 
   return (
-    <DashboardLayout navItems={navItems} userType="admin">
+    <DashboardLayout navItems={navItems} userType="admin" title="Investment Overview">
       <div className="p-6">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900">Investment Overview</h1>

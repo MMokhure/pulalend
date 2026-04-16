@@ -154,7 +154,7 @@ export default function LenderWithdrawalPage() {
   };
 
   return (
-    <DashboardLayout navItems={navItems} userType="lender">
+    <DashboardLayout navItems={navItems} userType="lender" title="Withdraw Funds">
       <div className="p-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Withdraw Funds</h2>
         

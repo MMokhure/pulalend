@@ -82,7 +82,7 @@ export default function AdminWithdrawalsPage() {
   };
 
   return (
-    <DashboardLayout navItems={navItems} userType="admin">
+    <DashboardLayout navItems={navItems} userType="admin" title="Withdrawal Requests">
       <div className="p-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Withdrawal Requests</h2>
         

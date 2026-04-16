@@ -164,7 +164,7 @@ export default function BorrowerSettingsPage() {
   };
 
   return (
-    <DashboardLayout navItems={navItems} userType="borrower">
+    <DashboardLayout navItems={navItems} userType="borrower" title="Settings">
       <div className="p-6">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Settings</h1>

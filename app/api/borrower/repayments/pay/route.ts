@@ -1,7 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
-import db from '@/lib/db';
+import { db } from '@/lib/db';
 import { getSessionUser } from '@/lib/auth';
-import { sendEmail } from '@/lib/emailService';
+
+interface RepaymentScheduleRow {
+  id: number;
+  loan_id: number;
+  paid_amount: number;
+  total_amount: number;
+  status: string;
+  interest_amount: number;
+  principal_amount: number;
+}
+
+interface LoanRow {
+  id: number;
+  borrower_id: number;
+  amount: number;
+}
+
+interface LenderSelectionRow {
+  id: number;
+  lender_id: number;
+  amount_lent: number;
+  amount_received: number | null;
+  total_expected_return: number;
+}
+
+interface LenderProfileRow {
+  commission_rate: number | null;
+}
+
+interface CountRow {
+  cnt: number;
+}
 
 // POST /api/borrower/repayments/pay
 export async function POST(request: NextRequest) {
@@ -15,10 +46,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
     }
     // Find repayment schedule
-    const [schedule] = await db.query('SELECT * FROM repayment_schedules WHERE id = ?', [repaymentId]);
+    const scheduleRows = (await db.query(
+      'SELECT id, loan_id, paid_amount, total_amount, status, interest_amount, principal_amount FROM repayment_schedules WHERE id = ? LIMIT 1',
+      [repaymentId]
+    )) as RepaymentScheduleRow[];
+    const schedule = scheduleRows[0];
     if (!schedule) return NextResponse.json({ error: 'Repayment not found' }, { status: 404 });
     // Find loan
-    const [loan] = await db.query('SELECT * FROM loan_requests WHERE id = ?', [schedule.loan_id]);
+    const loanRows = (await db.query('SELECT id, borrower_id, amount FROM loan_requests WHERE id = ? LIMIT 1', [schedule.loan_id])) as LoanRow[];
+    const loan = loanRows[0];
     if (!loan || loan.borrower_id !== user.id) return NextResponse.json({ error: 'Not your loan' }, { status: 403 });
     // Update paid amount and status
     const newPaid = Number(schedule.paid_amount) + Number(amount);
@@ -33,8 +69,11 @@ export async function POST(request: NextRequest) {
     await db.query('INSERT INTO transactions (user_id, loan_id, transaction_type, amount, status, reference_id, reference_type) VALUES (?, ?, "repayment", ?, "completed", ?, "repayment_schedules")', [user.id, loan.id, amount, repaymentId]);
     
     // Credit lender(s) and platform - Updated to use loan_lender_selections
-    const [lenderSelections] = await db.query('SELECT * FROM loan_lender_selections WHERE loan_id = ?', [loan.id]);
-    if (lenderSelections && lenderSelections.length > 0) {
+    const lenderSelections = (await db.query(
+      'SELECT id, lender_id, amount_lent, amount_received, total_expected_return FROM loan_lender_selections WHERE loan_id = ?',
+      [loan.id]
+    )) as LenderSelectionRow[];
+    if (lenderSelections.length > 0) {
       for (const selection of lenderSelections) {
         // Calculate this lender's portion of the payment
         const lenderPortion = (Number(selection.amount_lent) / Number(loan.amount)) * amount;
@@ -42,8 +81,12 @@ export async function POST(request: NextRequest) {
         const principalPortion = Number(schedule.principal_amount) * (lenderPortion / schedule.total_amount);
         
         // Platform commission (already set per lender in their profile)
-        const [lenderProfile] = await db.query('SELECT commission_rate FROM lender_profiles WHERE user_id = ?', [selection.lender_id]);
-        const commissionRate = lenderProfile && lenderProfile.commission_rate ? Number(lenderProfile.commission_rate) / 100 : 0.15;
+        const lenderProfileRows = (await db.query(
+          'SELECT commission_rate FROM lender_profiles WHERE user_id = ? LIMIT 1',
+          [selection.lender_id]
+        )) as LenderProfileRow[];
+        const lenderProfile = lenderProfileRows[0];
+        const commissionRate = lenderProfile?.commission_rate ? Number(lenderProfile.commission_rate) / 100 : 0.15;
         const platformFee = interestPortion * commissionRate;
         const lenderCredit = principalPortion + (interestPortion - platformFee);
         
@@ -61,7 +104,11 @@ export async function POST(request: NextRequest) {
     }
     
     // If all repayments for this loan are paid, mark loan as completed
-    const [remaining] = await db.query('SELECT COUNT(*) as cnt FROM repayment_schedules WHERE loan_id = ? AND status != "paid"', [loan.id]);
+    const remainingRows = (await db.query(
+      'SELECT COUNT(*) as cnt FROM repayment_schedules WHERE loan_id = ? AND status != "paid"',
+      [loan.id]
+    )) as CountRow[];
+    const remaining = remainingRows[0];
     if (remaining && remaining.cnt === 0) {
       await db.query('UPDATE loan_requests SET status = "completed" WHERE id = ?', [loan.id]);
     }

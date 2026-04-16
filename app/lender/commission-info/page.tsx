@@ -146,7 +146,7 @@ export default function LenderCommissionInfoPage() {
 
   if (loading && !user) {
     return (
-      <DashboardLayout navItems={navItems} userType="lender">
+      <DashboardLayout navItems={navItems} userType="lender" title="Commission Information">
         <div className="flex justify-center items-center h-64">
           <div className="text-gray-600">Loading...</div>
         </div>
@@ -155,7 +155,7 @@ export default function LenderCommissionInfoPage() {
   }
 
   return (
-    <DashboardLayout navItems={navItems} userType="lender">
+    <DashboardLayout navItems={navItems} userType="lender" title="Commission Information">
       <div className="p-6">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900">Commission Information</h1>

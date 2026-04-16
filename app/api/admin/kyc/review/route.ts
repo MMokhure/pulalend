@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import db from '@/lib/db';
+import { db } from '@/lib/db';
 import { getSessionUser } from '@/lib/auth';
+
+interface KycRequestRow {
+  id: number;
+  user_id: number;
+  status: string;
+}
 
 // POST /api/admin/kyc/review - Approve or reject KYC submission
 export async function POST(request: NextRequest) {
@@ -15,7 +21,11 @@ export async function POST(request: NextRequest) {
     }
     
     // Find KYC request
-    const [kyc] = await db.query('SELECT * FROM kyc_requests WHERE id = ?', [kycId]);
+    const kycRows = (await db.query(
+      'SELECT id, user_id, status FROM kyc_requests WHERE id = ? LIMIT 1',
+      [kycId]
+    )) as KycRequestRow[];
+    const kyc = kycRows[0];
     if (!kyc) return NextResponse.json({ error: 'KYC request not found' }, { status: 404 });
     if (kyc.status !== 'pending') return NextResponse.json({ error: 'Already processed' }, { status: 400 });
     
