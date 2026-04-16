@@ -42,6 +42,15 @@ const navItems = [
     ),
   },
   {
+    label: "Extension Requests",
+    href: "/borrower/extensions",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+  {
     label: "KYC",
     href: "/borrower/kyc",
     icon: (
@@ -60,14 +69,127 @@ const navItems = [
       </svg>
     ),
   },
+  {
+    label: "Settings",
+    href: "/borrower/settings",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+  },
 ];
 
-export default function BorrowerRepaymentsPage() {
+function UpcomingPaymentItem({ schedule, onPaid }: { schedule: any; onPaid: () => void }) {
+  const [showForm, setShowForm] = useState(false);
+  const [amount, setAmount] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handlePay = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess("");
+    try {
+      const res = await fetch("/api/borrower/repayments/pay", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ repaymentId: schedule.id, amount: Number(amount) })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Payment failed");
+      setSuccess("Payment recorded!");
+      setTimeout(onPaid, 1000);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="border border-gray-200 rounded-lg p-4 bg-white">
+      <div className="flex items-center justify-between mb-2">
+        <div>
+          <div className="font-semibold text-navy-deep">Loan #{schedule.loan_number}</div>
+          <div className="text-sm text-gray-500">Due: {schedule.due_date}</div>
+        </div>
+        <div className="text-right">
+          <div className="text-lg font-bold text-primary-blue">P{schedule.total_amount}</div>
+          <div className="text-xs text-gray-500">
+            {schedule.status === 'overdue' ? (
+              <span className="text-red-600">Overdue</span>
+            ) : (
+              <span className="text-gray-600">{schedule.status}</span>
+            )}
+          </div>
+        </div>
+      </div>
+      
+      {!showForm ? (
+        <button 
+          className="w-full bg-primary-blue text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition mt-2"
+          onClick={() => setShowForm(true)}
+        >
+          Make Payment
+        </button>
+      ) : (
+        <form onSubmit={handlePay} className="mt-3 space-y-3">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Payment Amount</label>
+            <input
+              type="number"
+              min="1"
+              max={schedule.total_amount - schedule.paid_amount}
+              step="0.01"
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none"
+              placeholder="Enter amount (BWP)"
+              value={amount}
+              onChange={e => setAmount(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-2">
+            <button 
+              type="submit" 
+              className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50"
+              disabled={loading}
+            >
+              {loading ? "Processing..." : "Submit Payment"}
+            </button>
+            <button 
+              type="button" 
+              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+              onClick={() => setShowForm(false)}
+            >
+              Cancel
+            </button>
+          </div>
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded text-sm">
+              {error}
+            </div>
+          )}
+          {success && (
+            <div className="bg-green-50 border border-green-200 text-green-700 px-3 py-2 rounded text-sm">
+              {success}
+            </div>
+          )}
+        </form>
+      )}
+    </div>
+  );
+}
+
+export default function BorrowerRepaymentDashboard() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
+  const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [repayments, setRepayments] = useState<any[]>([]);
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -81,80 +203,130 @@ export default function BorrowerRepaymentsPage() {
       return;
     }
     setUser(parsed);
-    load(parsed.id);
+    loadData();
   }, [router]);
 
-  const load = async (userId: number) => {
+  const loadData = () => {
     setLoading(true);
-    setError("");
-    try {
-      const res = await fetch(`/api/borrower/repayments?userId=${userId}`);
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error || "Failed to load repayment schedule");
-        return;
-      }
-      setRepayments(data.repayments || []);
-    } catch {
-      setError("Network error");
-    } finally {
-      setLoading(false);
-    }
+    fetch("/api/borrower/repayment-dashboard")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError("Failed to load dashboard");
+        setLoading(false);
+      });
   };
 
   if (!user) return null;
 
+  if (loading) {
+    return (
+      <DashboardLayout userType="borrower" navItems={navItems} title="Repayments">
+        <div className="flex items-center justify-center py-12">
+          <div className="text-gray-500">Loading...</div>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <DashboardLayout userType="borrower" navItems={navItems} title="Repayments">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+          {error}
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  if (!data) return null;
+
   return (
     <DashboardLayout userType="borrower" navItems={navItems} title="Repayments">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-        <div className="p-6 border-b border-gray-100">
-          <h2 className="text-lg font-bold text-navy-deep">Repayment Schedule</h2>
-          <p className="text-gray-600 text-sm mt-1">Upcoming and past repayments</p>
+      <div className="space-y-6">
+        {/* Active Loans */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <h3 className="text-lg font-bold text-navy-deep mb-4">Active Loans</h3>
+          {!data.loans || data.loans.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">No active loans.</div>
+          ) : (
+            <div className="space-y-3">
+              {data.loans.map((loan: any) => (
+                <div key={loan.id} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-semibold text-navy-deep">Loan #{loan.loan_number}</div>
+                      <div className="text-sm text-gray-600 mt-1">
+                        Interest: {loan.interest_rate}% • Duration: {loan.duration_months} months
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-primary-blue">P{loan.amount.toLocaleString()}</div>
+                      <div className="text-xs text-gray-500">
+                        <span className={`px-2 py-1 rounded ${
+                          loan.status === 'active' ? 'bg-green-100 text-green-700' :
+                          loan.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                          'bg-gray-100 text-gray-700'
+                        }`}>
+                          {loan.status}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="p-6">
-          {loading ? (
-            <p className="text-gray-500">Loading...</p>
-          ) : error ? (
-            <p className="text-red-600">{error}</p>
-          ) : repayments.length === 0 ? (
-            <p className="text-gray-600">
-              No repayment schedule yet. It will appear once a loan is funded and activated.
-            </p>
+        {/* Upcoming Payments */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <h3 className="text-lg font-bold text-navy-deep mb-4">Upcoming Payments</h3>
+          {!data.schedules || data.schedules.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">No upcoming payments.</div>
+          ) : (
+            <div className="space-y-4">
+              {data.schedules.filter((s: any) => s.status !== "paid").map((s: any) => (
+                <UpcomingPaymentItem key={s.id} schedule={s} onPaid={loadData} />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Payment History */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <h3 className="text-lg font-bold text-navy-deep mb-4">Payment History</h3>
+          {!data.payments || data.payments.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">No payments yet.</div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead>
-                  <tr className="text-left text-sm text-gray-500">
-                    <th className="pb-3">Loan</th>
-                    <th className="pb-3">Installment</th>
-                    <th className="pb-3">Due Date</th>
-                    <th className="pb-3">Total</th>
-                    <th className="pb-3">Paid</th>
-                    <th className="pb-3">Status</th>
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Loan</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {repayments.map((r) => (
-                    <tr key={r.id} className="border-t border-gray-50">
-                      <td className="py-3 font-medium">#{r.loanId}</td>
-                      <td className="py-3">{r.installmentNumber}</td>
-                      <td className="py-3">{new Date(r.dueDate).toLocaleDateString()}</td>
-                      <td className="py-3">P{Number(r.totalAmount).toLocaleString()}</td>
-                      <td className="py-3">P{Number(r.paidAmount).toLocaleString()}</td>
-                      <td className="py-3">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            r.status === "paid"
-                              ? "bg-green-100 text-green-700"
-                              : r.status === "overdue"
-                              ? "bg-red-100 text-red-700"
-                              : r.status === "partial"
-                              ? "bg-yellow-100 text-yellow-700"
-                              : "bg-gray-100 text-gray-700"
-                          }`}
-                        >
-                          {r.status}
+                <tbody className="divide-y divide-gray-200">
+                  {data.payments.map((p: any) => (
+                    <tr key={p.id}>
+                      <td className="px-4 py-3 text-sm font-medium">#{p.loan_number}</td>
+                      <td className="px-4 py-3 text-sm font-semibold text-primary-blue">P{p.amount.toLocaleString()}</td>
+                      <td className="px-4 py-3 text-sm text-gray-600">
+                        {new Date(p.created_at).toLocaleDateString()}
+                      </td>
+                      <td className="px-4 py-3 text-sm">
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          p.status === 'completed' ? 'bg-green-100 text-green-700' :
+                          p.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                          'bg-gray-100 text-gray-700'
+                        }`}>
+                          {p.status}
                         </span>
                       </td>
                     </tr>

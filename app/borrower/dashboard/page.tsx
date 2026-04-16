@@ -43,6 +43,15 @@ const navItems = [
     ),
   },
   {
+    label: "Extension Requests",
+    href: "/borrower/extensions",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+  {
     label: "KYC",
     href: "/borrower/kyc",
     icon: (
@@ -58,6 +67,16 @@ const navItems = [
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Settings",
+    href: "/borrower/settings",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
     ),
   },
@@ -135,7 +154,26 @@ export default function BorrowerDashboard() {
       </div>
 
       {/* KYC Status Banner */}
-      {kycStatus && kycStatus.status !== 'verified' && (
+      {kycStatus && kycStatus.status === 'approved' && (
+        <div className="rounded-xl p-6 mb-8 bg-green-50 border border-green-200">
+          <div className="flex items-start space-x-4">
+            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-lg mb-1 text-green-800">
+                KYC Verification Approved ✓
+              </h3>
+              <p className="text-sm text-green-700">
+                Your identity has been verified. You can now apply for loans and access all platform features.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      {kycStatus && kycStatus.status !== 'verified' && kycStatus.status !== 'approved' && (
         <div className={`rounded-xl p-6 mb-8 ${
           kycStatus.status === 'pending' ? 'bg-yellow-50 border border-yellow-200' :
           kycStatus.status === 'rejected' ? 'bg-red-50 border border-red-200' :

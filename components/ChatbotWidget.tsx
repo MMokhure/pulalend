@@ -101,7 +101,7 @@ export default function ChatbotWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="hidden md:block fixed bottom-6 right-6 z-50">
       {isOpen && (
         <div className="w-[320px] sm:w-[360px] rounded-3xl chatbot-surface overflow-hidden">
           <div className="px-5 py-4 border-b border-navy-deep/10 flex items-center justify-between bg-white/80">

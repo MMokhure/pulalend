@@ -46,18 +46,11 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { userId, amount, durationMonths, purpose, notes, lenderIds } = body;
+    const { userId, amount, durationMonths, purpose, notes } = body;
 
     if (!userId || !amount || !durationMonths || !purpose) {
       return NextResponse.json(
         { error: "userId, amount, durationMonths and purpose are required" },
-        { status: 400 }
-      );
-    }
-
-    if (!Array.isArray(lenderIds) || lenderIds.length === 0) {
-      return NextResponse.json(
-        { error: "Select at least one lender" },
         { status: 400 }
       );
     }
@@ -70,34 +63,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid numeric input" }, { status: 400 });
     }
 
-    const selectedLenders = lenderIds
-      .map((id: any) => Number(id))
-      .filter((id: number) => Number.isFinite(id));
-
-    if (selectedLenders.length === 0) {
-      return NextResponse.json({ error: "Invalid lender selection" }, { status: 400 });
-    }
-
-    const placeholders = selectedLenders.map(() => "?").join(",");
-    const [lenderRows] = await pool.execute<RowDataPacket[]>(
-      `SELECT u.id
-       FROM users u
-       INNER JOIN lender_profiles lp ON lp.user_id = u.id
-       WHERE u.user_type = 'lender'
-         AND lp.verified = TRUE
-         AND lp.available_balance > 0
-         AND u.id IN (${placeholders})`,
-      selectedLenders
+    // Check KYC verification status
+    const [kycRows] = await pool.execute<RowDataPacket[]>(
+      `SELECT status FROM kyc_requests WHERE user_id = ? ORDER BY submitted_at DESC LIMIT 1`,
+      [borrowerId]
     );
 
-    if (lenderRows.length !== selectedLenders.length) {
+    if (kycRows.length === 0 || kycRows[0].status !== 'approved') {
       return NextResponse.json(
-        { error: "One or more lenders are not available" },
-        { status: 400 }
+        { error: "You must complete KYC verification before applying for a loan. Please submit your KYC documents first." },
+        { status: 403 }
       );
     }
 
-    // Default interest rate/risk grade for v1 (admin can adjust later)
+    // Default interest rate/risk grade (admin can adjust later)
     const interestRate = 12.0;
     const riskGrade = "C";
 
@@ -109,6 +88,7 @@ export async function POST(request: NextRequest) {
     );
     const loanNumber = `LOAN${String(maxIdRow[0].nextId).padStart(6, '0')}`;
 
+    // Create loan request - admin will assign lenders later
     const [result] = await pool.execute(
       `INSERT INTO loan_requests (loan_number, borrower_id, amount, interest_rate, duration_months, purpose, status, risk_grade)
        VALUES (?, ?, ?, ?, ?, ?, 'pending', ?)`,
@@ -117,15 +97,11 @@ export async function POST(request: NextRequest) {
 
     const loanId = (result as any).insertId;
 
-    const lenderValues = selectedLenders.map((lenderId: number) => [loanId, lenderId]);
-    await pool.query(
-      "INSERT INTO loan_lender_selections (loan_id, lender_id) VALUES ?",
-      [lenderValues]
-    );
-
     return NextResponse.json({
       success: true,
       loanId,
+      loanNumber,
+      message: "Loan request submitted successfully. Admin will assign lender(s) shortly.",
     });
   } catch (error) {
     console.error("Borrower loans POST error:", error);

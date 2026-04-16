@@ -42,6 +42,15 @@ const navItems = [
     ),
   },
   {
+    label: "Extension Requests",
+    href: "/borrower/extensions",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+  {
     label: "KYC",
     href: "/borrower/kyc",
     icon: (
@@ -60,19 +69,26 @@ const navItems = [
       </svg>
     ),
   },
+  {
+    label: "Settings",
+    href: "/borrower/settings",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+  },
 ];
 
 export default function BorrowerApplyPage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
-  const [lenders, setLenders] = useState<any[]>([]);
-  const [lenderLoading, setLenderLoading] = useState(true);
   const [form, setForm] = useState({
     amount: "",
     durationMonths: "1",
     purpose: "",
     notes: "",
-    lenderIds: [] as number[],
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -90,35 +106,7 @@ export default function BorrowerApplyPage() {
       return;
     }
     setUser(parsed);
-    loadLenders();
   }, [router]);
-
-  const loadLenders = async () => {
-    setLenderLoading(true);
-    try {
-      const res = await fetch("/api/borrower/lenders");
-      const data = await res.json();
-      if (res.ok) {
-        setLenders(data.lenders || []);
-      }
-    } catch {
-      // Best-effort load
-    } finally {
-      setLenderLoading(false);
-    }
-  };
-
-  const toggleLender = (lenderId: number) => {
-    setForm((f) => {
-      const exists = f.lenderIds.includes(lenderId);
-      return {
-        ...f,
-        lenderIds: exists
-          ? f.lenderIds.filter((id) => id !== lenderId)
-          : [...f.lenderIds, lenderId],
-      };
-    });
-  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -143,11 +131,6 @@ export default function BorrowerApplyPage() {
       return;
     }
 
-    if (form.lenderIds.length === 0) {
-      setError("Select at least one lender");
-      return;
-    }
-
     setLoading(true);
     try {
       const res = await fetch("/api/borrower/loans", {
@@ -159,7 +142,6 @@ export default function BorrowerApplyPage() {
           durationMonths,
           purpose: form.purpose.trim(),
           notes: form.notes.trim() || undefined,
-          lenderIds: form.lenderIds,
         }),
       });
       const data = await res.json();
@@ -167,9 +149,9 @@ export default function BorrowerApplyPage() {
         setError(data.error || "Failed to submit");
         return;
       }
-      setSuccess(`Loan request submitted (ID: #${data.loanId}).`);
-      setForm({ amount: "", durationMonths: "1", purpose: "", notes: "", lenderIds: [] });
-      setTimeout(() => router.push("/borrower/loans"), 900);
+      setSuccess(`Loan request submitted successfully! Our team will review and assign a lender shortly.`);
+      setForm({ amount: "", durationMonths: "1", purpose: "", notes: "" });
+      setTimeout(() => router.push("/borrower/loans"), 1500);
     } catch {
       setError("Network error. Please try again.");
     } finally {
@@ -210,19 +192,23 @@ export default function BorrowerApplyPage() {
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Repayment Duration (months)</label>
-              <select
-                value={form.durationMonths}
-                onChange={(e) => setForm((f) => ({ ...f, durationMonths: e.target.value }))}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none bg-white"
-              >
-                {[1, 2, 3, 4, 5, 6, 9, 12, 18, 24].map((m) => (
-                  <option key={m} value={m}>
-                    {m} {m === 1 ? 'month' : 'months'}
-                  </option>
-                ))}
-              </select>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <h4 className="text-sm font-semibold text-blue-900 mb-1">Standard Loan Duration</h4>
+                  <p className="text-sm text-blue-800">
+                    All loans have a standard <strong>1-month repayment period</strong>. 
+                    If you need more time, you can request an extension through the 
+                    <a href="/borrower/extensions" className="underline font-medium ml-1">Extension Requests</a> page.
+                  </p>
+                  <p className="text-xs text-blue-700 mt-2">
+                    Extension penalties are based on your borrower rank: Excellent (1%), Good (2%), Average (3%), Poor (5%)
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div>
@@ -237,64 +223,22 @@ export default function BorrowerApplyPage() {
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Choose Lender(s)
-              </label>
-              <p className="text-xs text-gray-500 mb-3">
-                Only verified lenders with available balance are shown.
-              </p>
-              {lenderLoading ? (
-                <div className="text-sm text-gray-500">Loading lenders...</div>
-              ) : lenders.length === 0 ? (
-                <div className="text-sm text-gray-500">
-                  No lenders available right now.
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-amber-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <h4 className="text-sm font-semibold text-amber-900 mb-1">Lender Assignment by Admin</h4>
+                  <p className="text-sm text-amber-800">
+                    Our team will review your application and assign the most suitable lender(s) based on availability and your loan requirements. 
+                    If your loan amount requires it, we may split it across multiple lenders to ensure you get the full amount.
+                  </p>
+                  <p className="text-xs text-amber-700 mt-2">
+                    You'll be notified once a lender has been assigned and your loan is approved.
+                  </p>
                 </div>
-              ) : (
-                <div className="space-y-3">
-                  {lenders.map((lender) => {
-                    const loanAmount = Number(form.amount || 0);
-                    const duration = Number(form.durationMonths || 0);
-                    const interestRate = 12;
-                    const interestFactor = 1 + (interestRate / 100) * (duration / 12 || 1);
-                    const totalReturn = loanAmount ? loanAmount * interestFactor : 0;
-
-                    return (
-                      <label
-                        key={lender.id}
-                        className={`flex items-center justify-between border rounded-lg px-4 py-3 cursor-pointer transition ${
-                          form.lenderIds.includes(lender.id)
-                            ? "border-primary-blue bg-blue-50"
-                            : "border-gray-200 hover:border-primary-blue"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <input
-                            type="checkbox"
-                            checked={form.lenderIds.includes(lender.id)}
-                            onChange={() => toggleLender(lender.id)}
-                            className="h-4 w-4 text-primary-blue"
-                          />
-                          <div>
-                            <div className="font-medium text-navy-deep">
-                              {lender.firstName} {lender.lastName}
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              Available: P{lender.availableBalance.toLocaleString()}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="text-right text-xs text-gray-500">
-                          <div>Rate: {interestRate}%</div>
-                          <div>
-                            Est. return: P{Math.round(totalReturn).toLocaleString()}
-                          </div>
-                        </div>
-                      </label>
-                    );
-                  })}
-                </div>
-              )}
+              </div>
             </div>
 
             <div>

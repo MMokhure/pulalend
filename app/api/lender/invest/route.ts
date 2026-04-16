@@ -63,8 +63,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Get lender's commission rate
+    const [lenderProfileRows] = await pool.execute<RowDataPacket[]>(
+      "SELECT commission_rate FROM lender_profiles WHERE user_id = ?",
+      [lenderId]
+    );
+    const commissionRate = lenderProfileRows.length > 0 && lenderProfileRows[0].commission_rate 
+      ? Number(lenderProfileRows[0].commission_rate) / 100 
+      : 0.02; // Default 2% if not set
+
     const [fundedRows] = await pool.execute<RowDataPacket[]>(
-      "SELECT COALESCE(SUM(amount - platform_commission),0) AS fundedAmount FROM investments WHERE loan_id = ?",
+      "SELECT COALESCE(SUM(amount),0) AS fundedAmount FROM investments WHERE loan_id = ?",
       [loanRequestId]
     );
 
@@ -79,16 +88,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Platform takes 2% commission from each lender investment.
-    const commissionRate = 0.02;
-    const platformCommission = investAmount * commissionRate;
-    const netInvestAmount = investAmount - platformCommission;
-
-    // Expected return for this investment (simple interest for v1)
+    // Calculate interest profit for this investment
     const durationMonths = Number(loan.durationMonths);
     const interestRate = Number(loan.interestRate);
-    const expectedReturn =
-      netInvestAmount + netInvestAmount * (interestRate / 100) * (durationMonths / 12);
+    const interestProfit = investAmount * (interestRate / 100) * (durationMonths / 12);
+    
+    // Platform takes commission from PROFIT (interest), not from principal
+    const platformCommission = interestProfit * commissionRate;
+    const netProfit = interestProfit - platformCommission;
+
+    // Expected return: full principal + net profit after commission
+    const expectedReturn = investAmount + netProfit;
 
     // Write investment + transaction
     const conn = await pool.getConnection();
@@ -110,12 +120,13 @@ export async function POST(request: NextRequest) {
           lenderId,
           investAmount,
           investmentId,
-          `Investment in loan #${loanRequestId} (2% platform fee: P${platformCommission.toFixed(2)})`,
+          `Investment in loan #${loanRequestId} (${(commissionRate * 100).toFixed(2)}% platform fee from profit: P${platformCommission.toFixed(2)})`,
         ]
       );
 
       // If fully funded: activate loan and generate repayment schedule
-      const newFunded = alreadyFunded + netInvestAmount;
+      // Full investment amount goes to borrower (commission taken from interest later)
+      const newFunded = alreadyFunded + investAmount;
       const fullyFunded = newFunded >= principal;
 
       if (fullyFunded) {
@@ -160,7 +171,8 @@ export async function POST(request: NextRequest) {
         success: true,
         fullyFunded,
         platformCommission,
-        netInvestedAmount: netInvestAmount,
+        investedAmount: investAmount,
+        commissionRate: (commissionRate * 100).toFixed(2) + '%',
       });
     } catch (e) {
       await conn.rollback();

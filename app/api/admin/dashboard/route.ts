@@ -33,27 +33,27 @@ export async function GET(request: NextRequest) {
         SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) as completedLoans,
         SUM(CASE WHEN status = 'defaulted' THEN 1 ELSE 0 END) as defaultedLoans,
         SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END) as rejectedLoans,
-        SUM(amount) as totalVolume,
-        SUM(CASE WHEN status IN ('funded', 'active', 'completed') THEN amount ELSE 0 END) as activeLoanVolume
+        COALESCE(SUM(amount), 0) as totalVolume,
+        COALESCE(SUM(CASE WHEN status IN ('funded', 'active', 'completed') THEN amount ELSE 0 END), 0) as activeLoanVolume
       FROM loan_requests`
     );
 
     const [investmentStats] = await pool.execute<RowDataPacket[]>(
       `SELECT 
         COUNT(*) as totalInvestments,
-        SUM(amount) as totalInvestedAmount,
-        AVG(amount) as avgInvestmentSize,
-        SUM(platform_commission) as totalCommissionEarned
+        COALESCE(SUM(amount), 0) as totalInvestedAmount,
+        COALESCE(AVG(amount), 0) as avgInvestmentSize,
+        COALESCE(SUM(platform_commission), 0) as totalCommissionEarned
       FROM investments`
     );
 
     const [repaymentStats] = await pool.execute<RowDataPacket[]>(
       `SELECT 
         COUNT(*) as totalRepayments,
-        SUM(CASE WHEN status = 'paid' THEN 1 ELSE 0 END) as completedRepayments,
-        SUM(CASE WHEN status IN ('pending', 'partial', 'overdue') AND due_date < NOW() THEN 1 ELSE 0 END) as overdueRepayments,
-        SUM(COALESCE(paid_amount, 0)) as totalRepaid,
-        SUM(CASE WHEN status IN ('pending', 'partial', 'overdue') AND due_date < NOW() THEN (total_amount - COALESCE(paid_amount, 0)) ELSE 0 END) as overdueAmount
+        COALESCE(SUM(CASE WHEN status = 'paid' THEN 1 ELSE 0 END), 0) as completedRepayments,
+        COALESCE(SUM(CASE WHEN status IN ('pending', 'partial', 'overdue') AND due_date < NOW() THEN 1 ELSE 0 END), 0) as overdueRepayments,
+        COALESCE(SUM(paid_amount), 0) as totalRepaid,
+        COALESCE(SUM(CASE WHEN status IN ('pending', 'partial', 'overdue') AND due_date < NOW() THEN (total_amount - COALESCE(paid_amount, 0)) ELSE 0 END), 0) as overdueAmount
       FROM repayment_schedules`
     );
 
@@ -241,8 +241,19 @@ export async function GET(request: NextRequest) {
         overdueCount: Number(l.overdueCount),
       })),
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Admin dashboard GET error:", error);
-    return NextResponse.json({ error: "Failed to load dashboard data" }, { status: 500 });
+    console.error("Error name:", error?.name);
+    console.error("Error message:", error?.message);
+    console.error("Error stack:", error?.stack);
+    console.error("SQL State:", error?.sqlState);
+    console.error("SQL Message:", error?.sqlMessage);
+    return NextResponse.json({ 
+      error: "Failed to load dashboard data", 
+      details: error?.message,
+      sqlMessage: error?.sqlMessage 
+    }, { status: 500 });
   }
 }
+
+

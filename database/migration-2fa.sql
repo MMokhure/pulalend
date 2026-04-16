@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS two_factor_codes (
 
 -- Add 2FA enabled flag to users table (if not exists)
 ALTER TABLE users 
-ADD COLUMN IF NOT EXISTS two_factor_enabled BOOLEAN DEFAULT TRUE COMMENT 'Whether 2FA is enabled for this user';
+ADD COLUMN IF NOT EXISTS two_factor_enabled BOOLEAN DEFAULT FALSE COMMENT 'Whether 2FA is enabled for this user';
 
 -- Add column to track last 2FA verification
 ALTER TABLE users 

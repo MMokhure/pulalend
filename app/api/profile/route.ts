@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
 
     const [userRows] = await pool.execute<RowDataPacket[]>(
       `SELECT id, email, first_name AS firstName, last_name AS lastName, phone, user_type AS userType,
-              status, email_verified AS emailVerified
+              status, email_verified AS emailVerified, two_factor_enabled AS twoFactorEnabled
        FROM users
        WHERE id = ?`,
       [userId]

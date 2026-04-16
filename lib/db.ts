@@ -11,4 +11,12 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
+// Helper function for backwards compatibility with routes using db.query()
+export const db = {
+  async query(sql: string, params?: any[]) {
+    const [rows] = await pool.execute(sql, params);
+    return rows;
+  }
+};
+
 export default pool;
