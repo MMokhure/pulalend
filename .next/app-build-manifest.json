@@ -1,35 +1,743 @@
 {
   "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/_not-found/page-bfd852c30544cb63.js"
+    ],
     "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/css/af5f4314c342bd10.css",
+      "static/chunks/app/layout-3a7cae409aa9545e.js"
     ],
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+    "/api/admin/borrowers/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/borrowers/route-1c09c37f3a0f3c0d.js"
     ],
-    "/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/login/page.js"
+    "/api/admin/commission/payments/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/commission/payments/route-1c09c37f3a0f3c0d.js"
     ],
-    "/api/auth/login/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/auth/login/route.js"
+    "/api/admin/commission/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/commission/route-1c09c37f3a0f3c0d.js"
     ],
-    "/admin/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/admin/page.js"
+    "/api/admin/investments/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/investments/route-1c09c37f3a0f3c0d.js"
     ],
     "/api/admin/dashboard/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/dashboard/route.js"
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/dashboard/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/kyc/review/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/kyc/review/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/lenders/approve/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/lenders/approve/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/kyc/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/kyc/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/lenders/commission-rate/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/lenders/commission-rate/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/lenders/assign/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/lenders/assign/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/loans/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/loans/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/migrate/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/migrate/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/loan-assignments/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/loan-assignments/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/notifications/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/notifications/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/repayments/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/repayments/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/reports/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/reports/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/transactions/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/transactions/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/users/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/users/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/withdrawals/approve/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/withdrawals/approve/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/admin/withdrawals/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/admin/withdrawals/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/auth/2fa/send/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/auth/2fa/send/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/auth/2fa/toggle/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/auth/2fa/toggle/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/auth/2fa/verify/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/auth/2fa/verify/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/auth/forgot-password/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/auth/forgot-password/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/auth/login/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/auth/login/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/auth/register/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/auth/register/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/auth/reset-password/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/auth/reset-password/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/auth/verify-reset-token/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/auth/verify-reset-token/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/borrower/extensions/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/borrower/extensions/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/borrower/kyc/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/borrower/kyc/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/borrower/loans/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/borrower/loans/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/borrower/repayment-dashboard/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/borrower/repayment-dashboard/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/borrower/dashboard/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/borrower/dashboard/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/borrower/repayments/pay/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/borrower/repayments/pay/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/add-funds/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/add-funds/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/borrower/repayments/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/borrower/repayments/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/commission-rate/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/commission-rate/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/dashboard/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/dashboard/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/invest/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/invest/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/investments/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/investments/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/loans-assigned/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/loans-assigned/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/opportunities/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/opportunities/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/portfolio/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/portfolio/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/repayment-schedule/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/repayment-schedule/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/withdrawals/request/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/withdrawals/request/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/preferences/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/preferences/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/withdrawals/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/withdrawals/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/lender/transactions/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/lender/transactions/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/notifications/[id]/read/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/notifications/[id]/read/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/notifications/[id]/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/notifications/[id]/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/notifications/mark-all-read/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/notifications/mark-all-read/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/notifications/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/notifications/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/api/profile/route": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/api/profile/route-1c09c37f3a0f3c0d.js"
+    ],
+    "/admin/investments/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/investments/page-8840f92d20b3dadf.js"
+    ],
+    "/admin/commission-payments/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/commission-payments/page-4aefc97be63e6b2e.js"
+    ],
+    "/admin/lenders/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/lenders/page-a9917a480a89d0c6.js"
+    ],
+    "/admin/commission/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/commission/page-31601875f56678e7.js"
+    ],
+    "/admin/loan-assignments/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/loan-assignments/page-d777e57583972ce9.js"
+    ],
+    "/admin/borrowers/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/borrowers/page-e42065ec91fc2bf4.js"
+    ],
+    "/admin/kyc/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/kyc/page-fc12a9c12e8157ec.js"
+    ],
+    "/admin/loans/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/loans/page-7a73705436ba870a.js"
+    ],
+    "/admin/notifications/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/notifications/page-9b6399a12f850eb9.js"
+    ],
+    "/admin/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/page-7f999bb62e44fd4b.js"
+    ],
+    "/admin/repayments/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/repayments/page-80f330d330093138.js"
+    ],
+    "/admin/transactions/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/transactions/page-8717e220972c447d.js"
+    ],
+    "/admin/reports/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/reports/page-634abb1a763e7f5b.js"
+    ],
+    "/admin/users/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/users/page-fb09c92192edda68.js"
+    ],
+    "/admin/settings/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/settings/page-fce770b57d604e8f.js"
+    ],
+    "/admin/withdrawals/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/admin/withdrawals/page-9b00a6a8a7b6311c.js"
+    ],
+    "/borrower/dashboard/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/borrower/dashboard/page-6d8594bfb50c0723.js"
+    ],
+    "/borrower/apply/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/borrower/apply/page-dba56e01990409c2.js"
+    ],
+    "/borrower/loans/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/borrower/loans/page-043573a61830a6bc.js"
+    ],
+    "/borrower/profile/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/borrower/profile/page-b23598e441bd4ef0.js"
+    ],
+    "/borrower/kyc/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/borrower/kyc/page-09216f42f5307249.js"
+    ],
+    "/borrower/extensions/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/borrower/extensions/page-9e97b04aa3d54584.js"
+    ],
+    "/borrower/repayments/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/borrower/repayments/page-e8408da7d0057940.js"
+    ],
+    "/borrower/settings/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/borrower/settings/page-372f182856227379.js"
+    ],
+    "/forgot-password/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/forgot-password/page-cd619f52f40dcb52.js"
+    ],
+    "/lender/commission-info/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/lender/commission-info/page-71862ad43e2c0817.js"
+    ],
+    "/lender/investments/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/lender/investments/page-9bf9148450a28bba.js"
+    ],
+    "/lender/dashboard/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/lender/dashboard/page-dee51b80dae92d52.js"
+    ],
+    "/lender/loans-assigned/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/lender/loans-assigned/page-9c2311714151bbee.js"
+    ],
+    "/lender/opportunities/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/lender/opportunities/page-0532fb31856828ec.js"
+    ],
+    "/lender/portfolio/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/lender/portfolio/page-af525403d3c81e80.js"
+    ],
+    "/lender/profile/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/lender/profile/page-e02ace3685958a0a.js"
+    ],
+    "/lender/settings/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/lender/settings/page-2ce17bf8a2a8677e.js"
+    ],
+    "/lender/withdrawals/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/lender/withdrawals/page-09bf0f12cdb690a4.js"
+    ],
+    "/lender/transactions/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/lender/transactions/page-7b0e5e765015d2ac.js"
+    ],
+    "/login/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/login/page-a02e99127bb9b081.js"
+    ],
+    "/register/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/app/register/page-8bfbe02ee7809e5a.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-77a5eac1fb3ff819.js",
+      "static/chunks/app/page-a1791ece54171e28.js"
+    ],
+    "/reset-password/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/reset-password/page-d4067782e646f08d.js"
+    ],
+    "/terms/page": [
+      "static/chunks/webpack-791a59cc2eb2837e.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-aadf393aa3a56bfa.js",
+      "static/chunks/main-app-2c9a273da2661a68.js",
+      "static/chunks/app/terms/page-1c09c37f3a0f3c0d.js"
     ]
   }
 }

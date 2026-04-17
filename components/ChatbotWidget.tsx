@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 type Message = {
   id: string;
@@ -70,6 +70,7 @@ const getBotReply = (message: string) => {
 };
 
 export default function ChatbotWidget() {
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([{
@@ -77,6 +78,10 @@ export default function ChatbotWidget() {
     role: "bot",
     text: "Hi! I am the Pulalend assistant. Ask me about approvals, KYC, repayments, or choosing lenders.",
   }]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const conversation = useMemo(() => messages, [messages]);
 
@@ -99,6 +104,9 @@ export default function ChatbotWidget() {
     setMessages((prev) => [...prev, userMessage, botMessage]);
     setInput("");
   };
+
+  // Only render on client
+  if (!mounted) return null;
 
   return (
     <div className="hidden md:block fixed bottom-6 right-6 z-50">

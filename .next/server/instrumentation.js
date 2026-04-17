@@ -1,0 +1,1 @@
+"use strict";(()=>{var a={};a.id=6183,a.ids=[6183],a.modules={52586:(a,b,c)=>{async function d(){console.log("[startup] Instrumentation hook loaded (migrations disabled)")}c.r(b),c.d(b,{register:()=>d})}};var b=require("./webpack-runtime.js");b.C(a);var c=b(b.s=52586);module.exports=c})();

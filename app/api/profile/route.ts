@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
 
     const [userRows] = await pool.execute<RowDataPacket[]>(
       `SELECT id, email, first_name AS firstName, last_name AS lastName, phone, user_type AS userType,
-              status, email_verified AS emailVerified, two_factor_enabled AS twoFactorEnabled
+              status, email_verified AS emailVerified
        FROM users
        WHERE id = ?`,
       [userId]
@@ -29,6 +29,17 @@ export async function GET(request: NextRequest) {
     }
 
     const user = userRows[0];
+
+    // Try to get 2FA status — column may not exist yet if migration hasn't run
+    let twoFactorEnabled = false;
+    try {
+      const [tfaRows] = await pool.execute<RowDataPacket[]>(
+        `SELECT two_factor_enabled FROM users WHERE id = ? LIMIT 1`,
+        [userId]
+      );
+      twoFactorEnabled = !!tfaRows[0]?.two_factor_enabled;
+    } catch (_) { /* column missing — leave as false */ }
+    user.twoFactorEnabled = twoFactorEnabled;
 
     let profile: any = null;
     if (user.userType === "borrower") {
